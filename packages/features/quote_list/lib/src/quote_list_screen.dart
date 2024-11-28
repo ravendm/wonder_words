@@ -11,6 +11,7 @@ import 'package:quote_list/src/quote_paged_grid_view.dart';
 import 'package:quote_list/src/quote_paged_list_view.dart';
 import 'package:quote_repository/quote_repository.dart';
 import 'package:user_repository/user_repository.dart';
+import 'package:component_library/src/search_bar.dart' as sb;
 
 typedef QuoteSelected = Future<Quote?> Function(int selectedQuote);
 
@@ -144,7 +145,7 @@ class _QuoteListViewState extends State<QuoteListView> {
                     padding: EdgeInsets.symmetric(
                       horizontal: theme.screenMargin,
                     ),
-                    child: SearchBar(
+                    child: sb.SearchBar(
                       controller: _searchBarController,
                     ),
                   ),

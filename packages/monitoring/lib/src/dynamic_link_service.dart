@@ -11,8 +11,8 @@ typedef OnNewDynamicLinkPath = void Function(String newDynamicLinkPath);
 /// Wrapper around [FirebaseDynamicLinks].
 class DynamicLinkService {
   static const _domainUriPrefix = 'https://wonderwords1.page.link';
-  static const _iOSBundleId = 'com.raywenderlich.wonderWords';
-  static const _androidPackageName = 'com.raywenderlich.wonder_words';
+  static const _iOSBundleId = 'ru.nopreset.wonderWords';
+  static const _androidPackageName = 'ru.nopreset.wonderWords';
 
   DynamicLinkService({
     @visibleForTesting FirebaseDynamicLinks? dynamicLinks,

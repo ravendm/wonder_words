@@ -26,6 +26,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   routemaster: ^1.0.1
+  equatable: ^2.0.7
   key_value_storage:
     path: packages/key_value_storage
   fav_qs_api:

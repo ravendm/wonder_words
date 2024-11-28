@@ -1,6 +1,7 @@
 import 'package:component_library/component_library.dart';
 import 'package:flutter/material.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
+import 'package:component_library/src/search_bar.dart' as sb;
 
 List<Story> getStories(WonderThemeData theme) {
   return [
@@ -328,7 +329,7 @@ List<Story> getStories(WonderThemeData theme) {
     ),
     Story.simple(
       name: 'Search Bar',
-      child: const SearchBar(),
+      child: const sb.SearchBar(),
     ),
     Story.simple(
       name: 'Row App Bar',

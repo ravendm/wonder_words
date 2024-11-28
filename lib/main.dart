@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:isolate';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:component_library/component_library.dart';
 import 'package:domain_models/domain_models.dart';
 import 'package:fav_qs_api/fav_qs_api.dart';
@@ -24,22 +26,29 @@ import 'screen_view_observer.dart';
 void main() async {
   // Has to be late so it doesn't instantiate before the
   // `initializeMonitoringPackage()` call.
-  late final errorReportingService = ErrorReportingService();
+  //late final errorReportingService = ErrorReportingService();
 
   runZonedGuarded<Future<void>>(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+      await Firebase.initializeApp(options: const FirebaseOptions(
+        apiKey: 'AIzaSyBIHWlghwyUcV9KYbv0Jg6I3ChHdzcsZ_I',
+        appId: '1:589145954729:ios:a766e3f7389bd26f6a8cb8',
+        messagingSenderId: '589145954729',
+        projectId: 'wonderwords-af35d',
+        storageBucket: 'wonderwords-af35d.firebasestorage.app',
+      ));
       await initializeMonitoringPackage();
 
       final remoteValueService = RemoteValueService();
       await remoteValueService.load();
 
-      FlutterError.onError = errorReportingService.recordFlutterError;
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
       Isolate.current.addErrorListener(
         RawReceivePort((pair) async {
           final List<dynamic> errorAndStacktrace = pair;
-          await errorReportingService.recordError(
+          await FirebaseCrashlytics.instance.recordError(
             errorAndStacktrace.first,
             errorAndStacktrace.last,
           );
@@ -52,11 +61,14 @@ void main() async {
         ),
       );
     },
-    (error, stack) => errorReportingService.recordError(
-      error,
-      stack,
-      fatal: true,
-    ),
+    (error, stack) {
+      debugPrint('$error');
+      FirebaseCrashlytics.instance.recordError(
+        error,
+        stack,
+        fatal: true,
+      );
+    },
   );
 }
 
